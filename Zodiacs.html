@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Birth Info</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #3498db;
+      color: #fff;
+    }
+    .container {
+      border: 2px solid #2980b9;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff;
+      display: inline-block;
+      color: #2980b9;
+    }
+    #result {
+      margin-top: 20px;
+      color: #2574a9;
+    }
+    button {
+      background-color: #2980b9;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 2%;
+      cursor: pointer;
+      margin: 5px;
+    }
+    button:hover {
+      background-color: #2574a9;
+    }
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+    .custom-dialog {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+    }
+    .dialog-content {
+      background-color: white;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      color: #2574a9;
+      border-radius: 2%;
+    }
+    .dialog-button {
+      background-color: #2980b9;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .dialog-button:hover {
+      background-color: #2574a9;
+    }
+    #birthdate {
+      padding: 10px;
+      border: 2px solid #2980b9;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Birth Information</h1>
+    <label for="birthdate">Enter your birthdate:</label>
+    <input type="date" id="birthdate">
+    <button onclick="calculateInfo()">Get Info</button>
+
+    <div id="result">
+      <button onclick="showAstrologicalSign()">Show Astrological Sign</button>
+      <button onclick="showChineseZodiacSign()">Show Chinese Zodiac Sign</button>
+      <button onclick="showBirthStone()">Show Birthstone</button>
+      <button onclick="showBirthFlower()">Show Birth Flower</button>
+      <div id="info"></div>
+    </div>
+  </div>
+
+  <script>
+    let astrologicalSign, chineseZodiacSign, birthStone, birthFlower;
+    let infoCalculated = false;
+
+    function calculateInfo() {
+      const birthdate = new Date(document.getElementById("birthdate").value);
+      const month = birthdate.getMonth();
+      const day = birthdate.getDate();
+      const year = birthdate.getFullYear();
+
+      switch (true) {
+        case (month === 11 && day >= 22) || (month === 0 && day <= 20):
+          astrologicalSign = "Capricorn";
+          break;
+        case (month === 0 && day >= 21) || (month === 1 && day <= 19):
+          astrologicalSign = "Aquarius";
+          break;
+        case (month === 1 && day >= 20) || (month === 2 && day <= 20):
+          astrologicalSign = "Pisces";
+          break;
+        case (month === 2 && day >= 21) || (month === 3 && day <= 19):
+          astrologicalSign = "Aries";
+          break;
+        case (month === 3 && day >= 20) || (month === 4 && day <= 20):
+          astrologicalSign = "Taurus";
+          break;
+        case (month === 4 && day >= 21) || (month === 5 && day <= 21):
+          astrologicalSign = "Gemini";
+          break;
+        case (month === 5 && day >= 22) || (month === 6 && day <= 21):
+          astrologicalSign = "Cancer";
+          break;
+        case (month === 6 && day >= 22) || (month === 7 && day <= 21):
+          astrologicalSign = "Leo";
+          break;
+        case (month === 7 && day >= 22) || (month === 8 && day <= 22):
+          astrologicalSign = "Virgo";
+          break;
+        case (month === 8 && day >= 23) || (month === 9 && day <= 22):
+          astrologicalSign = "Libra";
+          break;
+        case (month === 9 && day >= 23) || (month === 10 && day <= 21):
+          astrologicalSign = "Scorpio";
+          break;
+        default:
+          astrologicalSign = "Sagittarius";
+      }
+
+      switch (year % 12) {
+        case 0:
+          chineseZodiacSign = "Monkey";
+          break;
+        case 1:
+          chineseZodiacSign = "Rooster";
+          break;
+        case 2:
+          chineseZodiacSign = "Dog";
+          break;
+        case 3:
+          chineseZodiacSign = "Pig";
+          break;
+        case 4:
+          chineseZodiacSign = "Rat";
+          break;
+        case 5:
+          chineseZodiacSign = "Ox";
+          break;
+        case 6:
+          chineseZodiacSign = "Tiger";
+          break;
+        case 7:
+          chineseZodiacSign = "Rabbit";
+          break;
+        case 8:
+          chineseZodiacSign = "Dragon";
+          break;
+        case 9:
+          chineseZodiacSign = "Snake";
+          break;
+        case 10:
+          chineseZodiacSign = "Horse";
+          break;
+        case 11:
+          chineseZodiacSign = "Sheep";
+          break;
+      }
+
+      const birthStonesAndFlowers = [
+        { stone: "Garnet", flower: "Carnation" },
+        { stone: "Amethyst", flower: "Violet" },
+        { stone: "Aquamarine", flower: "Jonquil" },
+        { stone: "Diamond", flower: "Sweet Pea" },
+        { stone: "Emerald", flower: "Lily of the Valley" },
+        { stone: "Pearl", flower: "Rose" },
+        { stone: "Ruby", flower: "Larkspur" },
+        { stone: "Peridot", flower: "Gladiola" },
+        { stone: "Sapphire", flower: "Aster" },
+        { stone: "Opal", flower: "Calendula" },
+        { stone: "Topaz", flower: "Chrysanthemum" },
+        { stone: "Turquoise", flower: "Narcissus" }
+      ];
+
+      birthStone = birthStonesAndFlowers[month].stone;
+      birthFlower = birthStonesAndFlowers[month].flower;
+
+      infoCalculated = true;
+      alert("You can now use the other buttons.");
+    }
+
+    function showAstrologicalSign() {
+      if (infoCalculated) {
+        showDialog("Astrological Sign", astrologicalSign);
+      } else {
+        alert("Please click the 'Get Info' button first.");
+      }
+    }
+
+    function showChineseZodiacSign() {
+      if (infoCalculated) {
+        showDialog("Chinese Zodiac Sign", chineseZodiacSign);
+      } else {
+        alert("Please click the 'Get Info' button first.");
+      }
+    }
+
+    function showBirthStone() {
+      if (infoCalculated) {
+        showDialog("Birthstone", birthStone);
+      } else {
+        alert("Please click the 'Get Info' button first.");
+      }
+    }
+
+    function showBirthFlower() {
+      if (infoCalculated) {
+        showDialog("Birth Flower", birthFlower);
+      } else {
+        alert("Please click the 'Get Info' button first.");
+      }
+    }
+
+    function showDialog(title, content) {
+      const dialog = document.createElement("div");
+      dialog.className = "custom-dialog";
+      dialog.innerHTML = `
+        <div class="dialog-content">
+          <h2>${title}</h2>
+          <p>${content}</p>
+        </div>
+        <button class="dialog-button" onclick="closeDialog()">Close</button>
+      `;
+      document.body.appendChild(dialog);
+    }
+
+    function closeDialog() {
+      const customDialog = document.querySelector(".custom-dialog");
+      customDialog.parentNode.removeChild(customDialog);
+    }
+  </script>
+</body>
+</html>
